@@ -51,7 +51,7 @@ function my_custom_posttypes() {
         'show_in_menu'       => true,
         'menu_icon'          => 'dashicons-book-alt',
         'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'datarelease-12/%classification%', 'with_front' => false),
+        'rewrite'            => array( 'slug' => 'dr12/%classification%', 'with_front' => false),
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => true,
