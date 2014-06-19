@@ -51,7 +51,7 @@ function my_custom_posttypes() {
         'show_in_menu'       => true,
         'menu_icon'          => 'dashicons-book-alt',
         'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'dr12/%classification%', 'with_front' => false),
+        'rewrite'            => array( 'slug' => 'data-release/%classification%', 'with_front' => false),
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => true,
@@ -63,7 +63,7 @@ function my_custom_posttypes() {
 }
 add_action ('init', 'my_custom_posttypes');
 
-// Flush rewrite rules to add "datarelease-12" as a permalink slug
+// Flush rewrite rules to add "data-release" as a permalink slug
 function my_rewrite_flush() {
     my_custom_posttypes();
     flush_rewrite_rules();
@@ -94,7 +94,7 @@ function my_custom_taxonomies() {
         'show_ui'           => true,
         'show_admin_column' => true,
         'query_var'         => true,
-        'rewrite'           => array( 'slug' => 'datarelease-12' ),
+        'rewrite'           => array( 'slug' => 'data-release' ),
     );
 
     register_taxonomy( 'classification', array( 'dr12-documentation' ), $args );
