@@ -51,10 +51,10 @@ function my_custom_posttypes() {
         'show_in_menu'       => true,
         'menu_icon'          => 'dashicons-book-alt',
         'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'data-release/%classification%', 'with_front' => false),
+        'rewrite'            => array( 'slug' => 'dr12/%classification%', 'with_front' => false),
         'capability_type'    => 'post',
         'has_archive'        => true,
-        'hierarchical'       => true,
+        'hierarchical'       => false,
         'menu_position'      => 5,
         'supports'           => array( 'title', 'editor', 'author', 'revisions', 'page-attributes', 'post-formats' )
     );
@@ -63,7 +63,7 @@ function my_custom_posttypes() {
 }
 add_action ('init', 'my_custom_posttypes');
 
-// Flush rewrite rules to add "data-release" as a permalink slug
+// Flush rewrite rules to add "dr12" as a permalink slug
 function my_rewrite_flush() {
     my_custom_posttypes();
     flush_rewrite_rules();
@@ -75,7 +75,7 @@ function my_custom_taxonomies() {
     
     // DR 12 Category taxonomy
     $labels = array(
-        'name'              => 'classification',
+        'name'              => 'Classification',
         'singular_name'     => 'DR12 Classification',
         'search_items'      => 'Search DR12 Classifications',
         'all_items'         => 'All DR12 Classifications',
@@ -94,10 +94,10 @@ function my_custom_taxonomies() {
         'show_ui'           => true,
         'show_admin_column' => true,
         'query_var'         => true,
-        'rewrite'           => array( 'slug' => 'data-release' ),
+        'rewrite'           => array( 'slug' => 'dr12' ),
     );
 
-    register_taxonomy( 'classification', array( 'dr12-documentation' ), $args );
+    register_taxonomy( 'Classification', array( 'dr12-documentation' ), $args );
 
 }
 
@@ -115,10 +115,9 @@ function classification_permalink($permalink, $post_id, $leavename) {
         // Get taxonomy terms
         $terms = wp_get_object_terms($post->ID, 'classification');
         if (!is_wp_error($terms) && !empty($terms) && is_object($terms[0]))
-            $taxonomy_slug = $terms[0]->slug;
-        else $taxonomy_slug = 'no-classification';
+            $taxonomy_slug = $terms[0]->slug . '/';
+        else $taxonomy_slug = '';
 
-    return str_replace('%classification%', $taxonomy_slug, $permalink);
+    return str_replace('%classification%/', $taxonomy_slug, $permalink);
 }
-
 ?>
