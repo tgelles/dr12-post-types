@@ -97,6 +97,12 @@ function my_custom_taxonomies() {
         'rewrite'           => array( 'slug' => 'dr12' ),
     );
 
+    add_rewrite_rule(
+    'data/([^/]+)/?$',
+    'index.php?dr12-documentation=$matches[1]',
+    'top'
+);
+
     register_taxonomy( 'Classification', array( 'dr12-documentation' ), $args );
 
 }
